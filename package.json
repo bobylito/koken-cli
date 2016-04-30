@@ -1,0 +1,17 @@
+{
+  "name": "koken-cli",
+  "version": "0.1.0",
+  "description": "A command line interface for Koken photo CMS",
+  "main": "index.js",
+  "scripts": {},
+  "bin": {
+    "koken-cli": "bin/koken-cli.js"
+  },
+  "author": "Alexandre Stanislawski <bobylito@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.3.5",
+    "minimist": "^1.2.0",
+    "request": "^2.72.0"
+  }
+}
