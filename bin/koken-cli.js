@@ -10,7 +10,7 @@ var client = KokenClient(config);
 
 client.login().then(function() {
   Promise.fromNode(fs.readdir.bind(null, config.folder))
-         .map(client.uploadImage)
+         .mapSeries(client.uploadImage)
 })
 
 function readConfig(argv) {
