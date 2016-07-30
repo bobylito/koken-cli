@@ -13,20 +13,43 @@ In your terminal:
 
 `npm install -g koken-cli`
 
-### Usage
+### Upload
 
-`koken-cli CMD YOUR_EMAIL PASSWORD BASE_KOKEN_URL FOLDER_CONTAINING_PHOTOS`
+Let you upload a folder to a single private album in your koken instance.
+
+#### Usage
+
+`koken-cli upload YOUR_EMAIL PASSWORD BASE_KOKEN_URL FOLDER_CONTAINING_PHOTOS`
 
 Parameters:
- - CMD : command to apply on your koken instance. For now, just `upload` is supported as a command.
  - YOUR_EMAIL: the email you use for your administration account on Koken
  - PASSWORD: the password associated with the email on your Koken instance
  - BASE_KOKEN_URL: the root url of your koken instance. For example if your admin page is on `http://my-photos.me/koken/admin` then this parameter should be `http://my-photos.me/koken`
  - FOLDER_CONTAINING_PHOTOS: folder that contains the photos you want to upload.
 
-### Example of batch upload of photos
+#### Example
 
 `koken-cli upload me@email.com myPassword39+ http://photos.artist.me allMyPhotos/2015`
+
+### Export albums metadata
+
+Let you export all the albums metadata recursively from a given root album. This is meant
+to provide a way to export the structure that you have set up in koken and reuse that to
+generate a separated website.
+
+#### Usage
+
+`koken-cli getAlbum YOUR_EMAIL PASSWORD BASE_KOKEN_URL ALBUM_ID`
+
+Parameters:
+ - YOUR_EMAIL: the email you use for your administration account on Koken
+ - PASSWORD: the password associated with the email on your Koken instance
+ - BASE_KOKEN_URL: the root url of your koken instance. For example if your admin page is on `http://my-photos.me/koken/admin` then this parameter should be `http://my-photos.me/koken`
+ - ALBUM_ID: Id of the root of the albums metadata to export. The ID can found in the properties panel of the album you want to export.
+
+#### Example
+
+`koken-cli getAlbum me@email.com myPassword39+ http://photos.artist.me 1`
 
 ## The JS client
 

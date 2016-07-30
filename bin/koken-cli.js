@@ -8,13 +8,22 @@ var KokenClient = require('../lib/client.js');
 var config = readConfig(process.argv);
 var client = KokenClient(config);
 
-client.login().then(function() {
-  Promise.fromNode(fs.readdir.bind(null, config.folder))
-         .mapSeries(client.uploadImage)
-})
+if(config.command === 'upload') {
+  client.login().then(function() {
+    Promise.fromNode(fs.readdir.bind(null, config.folder))
+           .mapSeries(client.uploadImage);
+  })
+}
+else if(config.command === 'getAlbum') {
+  client.login().then(function() {
+    return client.getAlbum(config.albumID);
+  }).then(function(album) {
+    console.log(JSON.stringify(album, null, 2));
+  });
+}
 
 function readConfig(argv) {
-  var SUPPORTED_COMMANDS = ['upload'];
+  var SUPPORTED_COMMANDS = ['upload', 'getAlbum'];
   var args = parseArgs(argv.slice(2));
 
   var command = args._[0];
@@ -31,9 +40,16 @@ function readConfig(argv) {
 
   if(baseURL === undefined) throw new Error('Base url for your koken instance must be provided.');
 
-  var folder = args._[4];
-
-  if(folder === undefined) throw new Error('Folder containing the images not provided');
+  var folder;
+  var albumID;
+  if(command === 'upload') {
+    folder = args._[4];
+    if(folder === undefined) throw new Error('Folder containing the images not provided');
+  }
+  else if(command === 'getAlbum') {
+    albumID = args._[4];
+    if(albumID === undefined) throw new Error('An albumID must be provided');
+  }
 
   return {
     command: command,
@@ -41,6 +57,7 @@ function readConfig(argv) {
     password: password,
     baseURL: baseURL,
     apiURL : baseURL + '/api.php?',
-    folder: folder
+    folder: folder,
+    albumID: albumID
   };
 }
