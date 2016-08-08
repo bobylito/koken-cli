@@ -56,7 +56,6 @@ function readConfig(argv) {
     email: email,
     password: password,
     baseURL: baseURL,
-    apiURL : baseURL + '/api.php?',
     folder: folder,
     albumID: albumID
   };
